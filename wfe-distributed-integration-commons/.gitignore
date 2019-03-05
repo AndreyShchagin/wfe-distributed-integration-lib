@@ -1,0 +1,11 @@
+# ignore eclipse files
+.settings
+.classpath
+.project
+.tern-project
+.idea/
+*.iml
+
+# ignore maven folder
+/target/
+
