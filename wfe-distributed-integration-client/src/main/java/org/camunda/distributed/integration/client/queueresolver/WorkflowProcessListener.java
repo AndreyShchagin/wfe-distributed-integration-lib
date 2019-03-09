@@ -1,6 +1,7 @@
 package org.camunda.distributed.integration.client.queueresolver;
 
-import org.camunda.distributed.integration.client.infrastructure.ResourceUpdater;
+import org.camunda.distributed.integration.client.infrastructure.ResourceUpdaterService;
+import org.camunda.distributed.integration.commons.dto.WfProcessModelDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Service;
 public class WorkflowProcessListener {
 
 	@Autowired
-	private ResourceUpdater resourceUpdater;
+	private ResourceUpdaterService resourceUpdater;
 
 	private static final Logger log = LoggerFactory.getLogger(WorkflowProcessListener.class);
 
 	@RabbitListener(queues = "#{@wfeIntegrationQueue}")
-	public void processMessage(WfProcessModel wfProcessModel) {
+	public void processMessage(WfProcessModelDto wfProcessModel) {
 		log.info("Start processing wfe settings message");
 
 		try {

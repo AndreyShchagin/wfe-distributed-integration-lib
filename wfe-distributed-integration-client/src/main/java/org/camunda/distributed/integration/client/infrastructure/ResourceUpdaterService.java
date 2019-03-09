@@ -14,15 +14,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Service for adding new resources
+ * Adds new resource to Camunda repository
  * 
-
  */
 @Service
-public class ResourceUpdater {
+public class ResourceUpdaterService {
 
 	@Autowired
-	private AWfeResourceResolver resourceResolver;
+	private WfeResourceResolver resourceResolver;
 
 	@Autowired
 	private RepositoryService	repositoryService;

@@ -19,8 +19,6 @@ public class FileUtil {
     public static final String FILE_SEPARATOR_BACKSLASH = "\\";
     public static final String TEMPORARY_DIRECTORY = "temp";
 
-    public static final String OCTET_STREAM_MIME = "application/octet-stream";
-
     /**
      * Replaces file path separators with the ones used by current operating system
      *

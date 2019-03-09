@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  *
  * @author Andrey Shchagin on 13.09.17.
  */
-public class LocalResourceResolver extends AWfeResourceResolver {
+public class LocalResourceResolver implements WfeResourceResolver {
     @Autowired
     private ResourcePatternResolver resourceLoader;
 

@@ -11,7 +11,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.spring.ProcessEngineFactoryBean;
 import org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.camunda.distributed.integration.client.infrastructure.AWfeResourceResolver;
+import org.camunda.distributed.integration.client.infrastructure.WfeResourceResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ public abstract class WorkflowConfiguration {
 
 	public abstract PlatformTransactionManager platformTransactionManager();
 
-	public abstract AWfeResourceResolver getWfeResourceResolver();
+	public abstract WfeResourceResolver getWfeResourceResolver();
 
 	private SpringProcessEngineConfiguration processEngineConfiguration() {
 

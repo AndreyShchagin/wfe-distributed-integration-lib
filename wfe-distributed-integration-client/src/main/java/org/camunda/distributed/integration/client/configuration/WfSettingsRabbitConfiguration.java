@@ -1,4 +1,4 @@
-package org.camunda.distributed.integration.client.queueresolver;
+package org.camunda.distributed.integration.client.configuration;
 
 import java.util.Collections;
 import java.util.List;

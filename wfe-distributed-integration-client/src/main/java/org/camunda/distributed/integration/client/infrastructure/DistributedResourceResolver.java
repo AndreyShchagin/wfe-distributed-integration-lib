@@ -5,7 +5,7 @@ package org.camunda.distributed.integration.client.infrastructure;
 
 import org.camunda.distributed.integration.client.commons.FileUtil;
 import org.camunda.distributed.integration.client.configuration.WorkflowConfiguration;
-import org.camunda.distributed.integration.client.queueresolver.WfSettingsRabbitConfiguration;
+import org.camunda.distributed.integration.client.configuration.WfSettingsRabbitConfiguration;
 import org.camunda.distributed.integration.commons.dto.FileDto;
 import org.camunda.distributed.integration.commons.exceptions.WfeConfigurationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ import static org.camunda.distributed.integration.commons.WfPropertyConstants.*;
  *
  */
 @Import({WfSettingsRabbitConfiguration.class, WorkflowConfiguration.class})
-public class DistributedResourceResolver extends AWfeResourceResolver {
+public class DistributedResourceResolver implements WfeResourceResolver {
 
 	@Autowired
 	private Environment			environment;

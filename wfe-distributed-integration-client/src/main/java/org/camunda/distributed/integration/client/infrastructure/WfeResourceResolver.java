@@ -9,7 +9,7 @@ import org.springframework.core.io.Resource;
  * Abstraction for WFE resource loader.
  * Concrete implementation shall be defined in application's configuration
  */
-public abstract class AWfeResourceResolver {
+public interface WfeResourceResolver {
 
-	public abstract Resource[] getResourcesAsStream(String... documentId);
+	Resource[] getResourcesAsStream(String... documentId);
 }
