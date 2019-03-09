@@ -54,7 +54,7 @@ public class DistributedResourceResolver extends AWfeResourceResolver {
 					new ByteArrayInputStream(
 							wfFile.getFileContent()),
 					FileUtil.getTemporaryPath(
-							environment.getRequiredProperty(SETTINGS_SERVICE_DOCUMENTSROOTPATH.name())).concat(wfFile.getName()))
+							environment.getRequiredProperty(SETTINGS_TEMP_DOCUMENTS_ROOTPATH.name())).concat(wfFile.getName()))
 		).collect(Collectors.toList());
 		//Load resources from files
 		//Clean up
@@ -73,7 +73,7 @@ public class DistributedResourceResolver extends AWfeResourceResolver {
 				environment.getRequiredProperty(SETTINGS_SERVICE_URL.name()).trim().
 						concat(environment.getRequiredProperty(SETTINGS_SERVICE_CONTEXT.name()).trim())
 		);
-		builder.path("/rest/workflowprocessdocuments/content");
+		builder.path(environment.getRequiredProperty(SETTINGS_SERVICE_DOCUMENT_DISTRIBUTION_ENDPOINT_URL.name()));
 		builder.queryParam("appextid", environment.getRequiredProperty(WorkflowConfiguration.APPLICATION_ID));
 		builder.queryParam("documentid", Arrays.stream(documentIds).filter(doc -> doc != null && !doc.isEmpty()).collect(Collectors.toList()));
 
@@ -88,10 +88,10 @@ public class DistributedResourceResolver extends AWfeResourceResolver {
 		}
 	}
 
-	private void deleteTemporaryFiles(List<String> filepaths) {
+	private void deleteTemporaryFiles(final List<String> tmpFilePaths) {
 		long delayPerFile = Long.parseLong(environment.getProperty(UPLOAD_SERVICE_CLEANUP_DELAY.name(), "25"));
 		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-		// wait for comunda engine to finalize processing the resources before delete them
-		executorService.schedule(() -> {filepaths.stream().forEach(p -> FileUtil.deleteFileFromLocation(p));}, filepaths.size() * delayPerFile, TimeUnit.SECONDS);
+		// wait for Camunda engine to finalize processing the resources before delete them
+		executorService.schedule(() -> {tmpFilePaths.stream().forEach(p -> FileUtil.deleteFileFromLocation(p));}, tmpFilePaths.size() * delayPerFile, TimeUnit.SECONDS);
 	}
 }
