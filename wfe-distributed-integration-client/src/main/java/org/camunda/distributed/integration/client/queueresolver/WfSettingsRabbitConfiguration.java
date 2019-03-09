@@ -30,9 +30,8 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 import org.springframework.util.StringUtils;
 
 /**
- * Rabbit configuration for the P2P WFE consumers
- * 
-
+ * Rabbit configuration for the WFE distributed service
+ * TODO: make abstract
  */
 @Configuration
 @ComponentScan("com.camunda.integration.ioc.queueresolver")
@@ -50,9 +49,9 @@ public class WfSettingsRabbitConfiguration implements RabbitListenerConfigurer {
 	 * </ul>
 	 * It's used to exchange specific workflow engine messages
 	 */
-	public static final String		P2P_WFE_TOPIC_EXCHANGE	= ".p2p.wfe.topic.exchange";
+	public static final String WFE_SETTINGS_TOPIC_EXCHANGE = ".wfe.settings.topic.exchange";
 
-	public static final String	ROUTING_KEY				= "p2p.wfe";
+	public static final String	ROUTING_KEY				= "wfe.settings";
 
 	@Autowired
 	private Environment			environment;
@@ -92,7 +91,7 @@ public class WfSettingsRabbitConfiguration implements RabbitListenerConfigurer {
 
 	@Bean
 	public TopicExchange wfeTopicExchange() {
-		return new TopicExchange(getQueuesPrefix() + P2P_WFE_TOPIC_EXCHANGE);
+		return new TopicExchange(getQueuesPrefix() + WFE_SETTINGS_TOPIC_EXCHANGE);
 	}
 
 	/**

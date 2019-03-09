@@ -9,8 +9,8 @@
 
 	<properties>
 		<camunda.version>7.7.0</camunda.version>
-		<spring-amqp.version>1.5.3.RELEASE</spring-amqp.version>
-		<spring-core.version>4.3.6.RELEASE</spring-core.version>
+		<spring-amqp.version>1.7.12.RELEASE</spring-amqp.version>
+		<spring-core.version>4.3.18.RELEASE</spring-core.version>
 	</properties>
 
 	<dependencyManagement>
@@ -53,6 +53,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring-core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

@@ -23,8 +23,6 @@ public class LocalResourceResolver extends AWfeResourceResolver {
     }
     @Override
     public Resource[] getResourcesAsStream(String... documentName) {
-        //                        forEach(res -> resourceList.add(resourceLoader.getResource(res))
-//                );
         return Stream.concat(Arrays.stream(resources), Arrays.stream(documentName)).
                 filter(res -> res != null && !res.isEmpty()).
                 map(res -> resourceLoader.getResource(res)).toArray(Resource[]::new);
