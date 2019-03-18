@@ -12,3 +12,5 @@ J2EE library which helps to implement distributed document exchange on container
  * Camunda-Spring integration project
     * [Camunda website](https://docs.camunda.org/manual/7.9/user-guide/spring-framework-integration/)
     * [Sources](https://github.com/camunda/camunda-bpm-platform/tree/master/engine-spring)
+ * [Spring-core AMQP](https://spring.io/projects/spring-amqp)
+ * [Rabbit MQ](https://www.rabbitmq.com/)

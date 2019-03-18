@@ -56,7 +56,6 @@ public class DistributedResourceResolver implements WfeResourceResolver {
 					FileUtil.getTemporaryPath(
 							environment.getRequiredProperty(SETTINGS_TEMP_DOCUMENTS_ROOTPATH.name())).concat(wfFile.getName()))
 		).collect(Collectors.toList());
-		//Load resources from files
 		//Clean up
 		deleteTemporaryFiles(temporaryFilePaths);
 

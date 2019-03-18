@@ -25,13 +25,14 @@ public class FileUtil {
      * @param filePath The String containing the filePath
      */
     public static String replaceSeparatorWithOSSeparator(String filePath) {
-        if (File.separator.equals(FILE_SEPARATOR_SLASH)) {
-            return filePath.replace(FILE_SEPARATOR_BACKSLASH, FILE_SEPARATOR_SLASH);
+        switch(File.separator) {
+            case FILE_SEPARATOR_SLASH:
+                return filePath.replace(FILE_SEPARATOR_BACKSLASH, FILE_SEPARATOR_SLASH);
+            case FILE_SEPARATOR_BACKSLASH:
+                return filePath.replace(FILE_SEPARATOR_SLASH, FILE_SEPARATOR_BACKSLASH);
+            default:
+                return filePath;
         }
-        if (File.separator.equals(FILE_SEPARATOR_BACKSLASH)) {
-            return filePath.replace(FILE_SEPARATOR_SLASH, FILE_SEPARATOR_BACKSLASH);
-        }
-        return filePath;
     }
 
     /**
@@ -100,19 +101,6 @@ public class FileUtil {
         }
     }
 
-    /**
-     * Checks the path if the separators are available for the existing operating system
-     *
-     * @param filePath The String containing the filePath
-     */
-    public static String checkFilePath(String filePath) {
-        if (File.separator.equals("/"))
-            return filePath.replace('\\', '/');
-        else if (File.separator.equals("\\"))
-            return filePath.replace('/', '\\');
-        else
-            return filePath;
-    }
 
     /**
      * Getting the path from a specific given path
@@ -120,7 +108,7 @@ public class FileUtil {
      * @param path The String containing the path
      */
     public static String getRealLocation(String path) {
-        path = checkFilePath(path);
+        path = replaceSeparatorWithOSSeparator(path);
 
         path = path.trim();
 

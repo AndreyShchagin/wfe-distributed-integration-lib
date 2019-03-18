@@ -3,7 +3,6 @@ package org.camunda.distributed.integration.client.configuration;
 import java.util.Collections;
 import java.util.List;
 
-import org.camunda.distributed.integration.client.configuration.WorkflowConfiguration;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -31,15 +30,14 @@ import org.springframework.util.StringUtils;
 
 /**
  * Rabbit configuration for the WFE distributed service
- * TODO: make abstract
  */
 @Configuration
-@ComponentScan("com.camunda.integration.ioc.queueresolver")
+@ComponentScan("org.camunda.distributed.integration.client.queueresolver")
 @EnableRabbit
 public class WfSettingsRabbitConfiguration implements RabbitListenerConfigurer {
 
 	/**
-	 * P2P WFE topic exchange;
+	 * WFE topic exchange;
 	 * <p>
 	 * A message sent with a particular routing key will be delivered to all the queues that are bound with a matching binding key. However there are two important special cases for binding keys:
 	 * <p>
@@ -73,7 +71,7 @@ public class WfSettingsRabbitConfiguration implements RabbitListenerConfigurer {
 	 * application is replicated, each instance has it's own queue so it can consume the message and update the cached data
 	 */
 	@Bean
-	public Queue p2pWfeQueue() {
+	public Queue wfeSettingsQueue() {
 		if (StringUtils.isEmpty(environment.getProperty(WorkflowConfiguration.APPLICATION_ID))) {
 			throw new BeanCreationException("Cannot configure consumer queue, please set the property `" + WorkflowConfiguration.APPLICATION_ID + "` to your application properties file ");
 		}
@@ -99,7 +97,7 @@ public class WfSettingsRabbitConfiguration implements RabbitListenerConfigurer {
 	 */
 	@Bean()
 	public List<Binding> wfeBindings() {
-		Binding topicExchangeBinding = BindingBuilder.bind(p2pWfeQueue()).to(wfeTopicExchange()).with("#." + environment.getProperty(WorkflowConfiguration.APPLICATION_ID).toLowerCase() + ".#");
+		Binding topicExchangeBinding = BindingBuilder.bind(wfeSettingsQueue()).to(wfeTopicExchange()).with("#." + environment.getProperty(WorkflowConfiguration.APPLICATION_ID).toLowerCase() + ".#");
 		return Collections.singletonList(topicExchangeBinding);
 	}
 
@@ -124,7 +122,7 @@ public class WfSettingsRabbitConfiguration implements RabbitListenerConfigurer {
 	public SimpleMessageListenerContainer listenerContainer() {
 		SimpleMessageListenerContainer listenerContainer = new SimpleMessageListenerContainer();
 		listenerContainer.setConnectionFactory(connectionFactory());
-		listenerContainer.setQueues(p2pWfeQueue());
+		listenerContainer.setQueues(wfeSettingsQueue());
 		listenerContainer.setAcknowledgeMode(AcknowledgeMode.AUTO);
 		listenerContainer.setMessageConverter(messageConverter());
 		return listenerContainer;
