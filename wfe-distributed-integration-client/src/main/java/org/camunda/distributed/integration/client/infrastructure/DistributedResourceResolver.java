@@ -1,5 +1,7 @@
 /**
+ * Resource resolver for distributes
  *
+ * @author Andrey Shchagin
  */
 package org.camunda.distributed.integration.client.infrastructure;
 

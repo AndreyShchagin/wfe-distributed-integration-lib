@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_1wwdy9m" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="WfeIntegrationExampleDecision" name="WfeIntegrationExampleDMN">
+    <decisionTable id="decisionTable" hitPolicy="COLLECT">
+      <input id="input1" label="Step ID" camunda:inputVariable="">
+        <inputExpression id="inputExpression1" typeRef="double">
+          <text>exampleEntity.command</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0lzzr61" label="Desicion to proceed" name="proceed" typeRef="boolean" />
+      <rule id="row-741073351-1">
+        <description>proceed to next execution step</description>
+        <inputEntry id="UnaryTests_14i3t03">
+          <text>1</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p56kt7">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-775446711-1">
+        <description>do not proceed</description>
+        <inputEntry id="UnaryTests_1ikcxrj">
+          <text>2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q8t4hs">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

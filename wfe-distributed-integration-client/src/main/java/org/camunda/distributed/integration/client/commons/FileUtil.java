@@ -1,9 +1,9 @@
 package org.camunda.distributed.integration.client.commons;
 
+import org.apache.commons.lang.StringUtils;
 import org.camunda.distributed.integration.commons.exceptions.GenericWfeIntegrationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -147,7 +147,7 @@ public class FileUtil {
     }
 
     public static void deleteFileFromLocation(String uploadedFilePath) {
-        if (uploadedFilePath == null || uploadedFilePath.trim().length() == 0) {
+        if (StringUtils.isEmpty(uploadedFilePath) || StringUtils.isBlank(uploadedFilePath)) {
             throw new GenericWfeIntegrationException("Can not delete file with null or empty name.");
         }
         deleteFile(Paths.get(uploadedFilePath));

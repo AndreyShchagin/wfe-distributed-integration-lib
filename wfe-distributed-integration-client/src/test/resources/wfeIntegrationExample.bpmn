@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0agspaq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.4">
+  <bpmn:collaboration id="Collaboration_1x6sdp8">
+    <bpmn:participant id="Participant_0b3eynt" name="Integration example" processRef="wfe-integration-example" />
+  </bpmn:collaboration>
+  <bpmn:process id="wfe-integration-example" name="" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1se3jid</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_0rwy95h">
+      <bpmn:incoming>conditionThrough</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0g1feea" name="Check next condition">
+      <bpmn:incoming>SequenceFlow_1h2ndu5</bpmn:incoming>
+      <bpmn:outgoing>conditionProceed</bpmn:outgoing>
+      <bpmn:outgoing>conditionThrough</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="waitForApproval" name="Wait for Approval">
+      <bpmn:incoming>conditionProceed</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tppdej</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1se3jid" sourceRef="StartEvent_1" targetRef="WfeIntegrationExampleDecision" />
+    <bpmn:businessRuleTask id="WfeIntegrationExampleDecision" name="List of use cases" camunda:resultVariable="desicionEntity" camunda:decisionRef="wfeExampleDMN" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_1se3jid</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1tppdej</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1h2ndu5</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1h2ndu5" sourceRef="WfeIntegrationExampleDecision" targetRef="ExclusiveGateway_0g1feea" />
+    <bpmn:sequenceFlow id="conditionProceed" name="YES" sourceRef="ExclusiveGateway_0g1feea" targetRef="waitForApproval">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${desicionEntity.iterate == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="conditionThrough" name="NO" sourceRef="ExclusiveGateway_0g1feea" targetRef="EndEvent_0rwy95h">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${desicionEntity.iterate == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1tppdej" sourceRef="waitForApproval" targetRef="WfeIntegrationExampleDecision" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1x6sdp8">
+      <bpmndi:BPMNShape id="Participant_0b3eynt_di" bpmnElement="Participant_0b3eynt">
+        <dc:Bounds x="112" y="36" width="929" height="531" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="288" y="196" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BusinessRuleTask_00gryo7_di" bpmnElement="WfeIntegrationExampleDecision">
+        <dc:Bounds x="414" y="174" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0rwy95h_di" bpmnElement="EndEvent_0rwy95h">
+        <dc:Bounds x="809" y="196" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0g1feea_di" bpmnElement="ExclusiveGateway_0g1feea" isMarkerVisible="true">
+        <dc:Bounds x="617" y="189" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="617" y="165" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_15hi17w_di" bpmnElement="waitForApproval">
+        <dc:Bounds x="592" y="359" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1se3jid_di" bpmnElement="SequenceFlow_1se3jid">
+        <di:waypoint x="324" y="214" />
+        <di:waypoint x="414" y="214" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1h2ndu5_di" bpmnElement="SequenceFlow_1h2ndu5">
+        <di:waypoint x="514" y="214" />
+        <di:waypoint x="617" y="214" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1r9npj8_di" bpmnElement="conditionProceed">
+        <di:waypoint x="642" y="239" />
+        <di:waypoint x="642" y="359" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="646" y="296" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_19ml98k_di" bpmnElement="conditionThrough">
+        <di:waypoint x="667" y="214" />
+        <di:waypoint x="809" y="214" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="730" y="196" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1tppdej_di" bpmnElement="SequenceFlow_1tppdej">
+        <di:waypoint x="592" y="399" />
+        <di:waypoint x="464" y="399" />
+        <di:waypoint x="464" y="254" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

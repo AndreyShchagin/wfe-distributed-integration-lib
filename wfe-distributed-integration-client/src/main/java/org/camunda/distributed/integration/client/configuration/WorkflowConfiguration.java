@@ -22,7 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
  */
 @Configuration
-@ComponentScan("com.camunda.integration.ioc.commons")
+@ComponentScan("org.camunda.distributed.integration.client.infrastructure")
 public abstract class WorkflowConfiguration {
 
 	public static final String APPLICATION_ID = "application.id";
