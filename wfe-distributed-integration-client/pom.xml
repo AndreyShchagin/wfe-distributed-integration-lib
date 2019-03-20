@@ -9,8 +9,8 @@
 
 	<properties>
 		<camunda.version>7.7.0</camunda.version>
-		<spring-amqp.version>1.7.9.RELEASE</spring-amqp.version>
-		<spring-core.version>4.3.18.RELEASE</spring-core.version>
+		<spring-amqp.version>1.7.12.RELEASE</spring-amqp.version>
+		<spring-core.version>4.3.22.RELEASE</spring-core.version>
 	</properties>
 
 	<dependencyManagement>
